@@ -64,12 +64,11 @@ do(State) ->
          FoundFiles = rebar_utils:find_files(SourceDir, ".*\\.proto\$"),
          proto_clean(AppInfo, FoundFiles)
      end || AppInfo <- Apps],
-
     {ok, State}.
 
 proto_clean(AppInfo, ProtoFiles) ->
     %% Get a list of generated .beam and .hrl files and then delete them
-    AppHome = rebar_app_info:outdir(AppInfo),
+    AppHome = rebar_app_info:out_dir(AppInfo),
     BeamFiles = [fq_beam_file(AppHome, F) || F <- ProtoFiles],
     HrlFiles = [fq_hrl_file(AppHome, F) || F <- ProtoFiles],
     Targets = BeamFiles ++ HrlFiles,
