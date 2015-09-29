@@ -30,7 +30,7 @@
 -export([init/1, do/1, format_error/1]).
 
 -define(PROVIDER, 'clean').
--define(DEPS, [app_discovery, install_deps]).
+-define(DEPS, [{default, app_discovery}]).
 
 %% ===================================================================
 %% Public API
