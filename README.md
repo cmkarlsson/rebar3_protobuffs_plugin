@@ -3,7 +3,7 @@ rebar3\_protobuffs\_plugin
 
 rebar3 protobuffs compiler.
 
-This is a conversion of the rebar2 *rebar_protobuffs_compiler.erl* module (https://github.com/rebar/rebar/blob/master/src/rebar\_protobuffs\_compiler.erl) into a rebar3 plugin. The plugin was primarily developed to compile the Erlang Riak Client, which uses  *riak_pb* which needs a protobuffer compiler.
+This is a conversion of the rebar2 *rebar_protobuffs_compiler.erl* module (https://github.com/rebar/rebar/blob/master/src/rebar_protobuffs_compiler.erl) into a rebar3 plugin. The plugin was primarily developed to compile the Erlang Riak Client, which uses  *riak_pb* which needs a protobuffer compiler.
 
 The plugin compiles *proto* files using the *erlang protobuffs* compiler (https://github.com/basho/erlang_protobuffs.git).
 
@@ -50,7 +50,7 @@ The original use case was to build proto files with riak_pb as a dependency. Thi
         {add, riak_pb, [
             {plugins, [
                 { rebar3_protobuffs_plugin,
-                  {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.0"}}
+                  {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.1"}}
                 }]
             },
             {provider_hooks, [{pre, [{compile, {protobuffs, compile}}]}]}
