@@ -101,7 +101,7 @@ needs_compile(HomeDir, Proto, Beam) ->
 
 compile_each(_, []) ->
     ok;
-compile_each(AppInfo, [{Proto, Beam, Hrl} | Rest]) ->
+compile_each(AppInfo, [{Proto, Beam, _Hrl} | Rest]) ->
     AppHome = rebar_app_info:out_dir(AppInfo),
     case needs_compile(AppHome, Proto, Beam) of
         true ->
@@ -109,18 +109,12 @@ compile_each(AppInfo, [{Proto, Beam, Hrl} | Rest]) ->
             ErlOpts = rebar_opts:erl_opts(rebar_app_info:opts(AppInfo)),
             case catch(protobuffs_compile:scan_file(Proto,
                                               [{compile_flags, ErlOpts},
-                                               {imports_dir, [filename:join(AppHome, "src")]}
+                                               {imports_dir, [filename:join(AppHome, "src")]},
+                                               {output_ebin_dir, [filename:join(AppHome, "ebin")]},
+                                               {output_include_dir, [filename:join(AppHome, "include")]}
                                               ])) of
                 ok ->
-                    %% Compilation worked, but we need to move the
-                    %% beam and .hrl file into the ebin/ and include/
-                    %% directories respectively
-                    %% TODO: Protobuffs really needs to be better about this
                     rebar_api:info("Successfully compiled: ~s", [Proto]),
-                    ok = filelib:ensure_dir(filename:join([AppHome,"ebin","dummy"])),
-                    ok = rebar_file_utils:mv(Beam, filename:join([AppHome, "ebin"])),
-                    ok = filelib:ensure_dir(filename:join([AppHome, "include", Hrl])),
-                    ok = rebar_file_utils:mv(Hrl, filename:join([AppHome, "include"])),
                     ok;
                 Other ->
                     rebar_api:error("Protobuffs compilation of ~s failed: ~p",
