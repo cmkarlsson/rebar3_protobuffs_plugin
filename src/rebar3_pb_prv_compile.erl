@@ -101,12 +101,14 @@ needs_compile(HomeDir, Proto, Beam) ->
 
 compile_each(_, []) ->
     ok;
-compile_each(AppInfo, [{Proto, Beam, _Hrl} | Rest]) ->
+compile_each(AppInfo, [{Proto, Beam, Hrl} | Rest]) ->
     AppHome = rebar_app_info:out_dir(AppInfo),
     case needs_compile(AppHome, Proto, Beam) of
         true ->
             rebar_api:console("Compiling ~s", [Proto]),
             ErlOpts = rebar_opts:erl_opts(rebar_app_info:opts(AppInfo)),
+            ok = filelib:ensure_dir(filename:join([AppHome, "ebin","dummy"])),
+            ok = filelib:ensure_dir(filename:join([AppHome, "include", Hrl])),
             case catch(protobuffs_compile:scan_file(Proto,
                                               [{compile_flags, ErlOpts},
                                                {imports_dir, [filename:join(AppHome, "src")]},
