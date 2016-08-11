@@ -13,7 +13,7 @@ Use
 Add the plugin to your rebar config:
 
     {plugins, [
-        { rebar3_protobuffs_plugin, {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.0"}}}
+        { rebar3_protobuffs_plugin, {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin"}}
     ]}.
 
 Compile proto files using the plugin directly:
