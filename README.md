@@ -13,7 +13,7 @@ Use
 Add the plugin to your rebar config:
 
     {plugins, [
-        { rebar3_protobuffs_plugin, {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.0"}}}
+        { rebar3_protobuffs_plugin, {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.2"}}}
     ]}.
 
 Compile proto files using the plugin directly:
@@ -50,7 +50,7 @@ The original use case was to build proto files with riak_pb as a dependency. Thi
         {add, riak_pb, [
             {plugins, [
                 { rebar3_protobuffs_plugin,
-                  {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.1"}}
+                  {git, "git://github.com/cmkarlsson/rebar3_protobuffs_plugin", {tag, "0.1.2"}}
                 }]
             },
             {provider_hooks, [{pre, [{compile, {protobuffs, compile}}]}]}
